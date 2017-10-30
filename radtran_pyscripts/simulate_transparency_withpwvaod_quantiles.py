@@ -55,8 +55,9 @@ if __name__ == "__main__":
             else:
                 molresol ='fine'
            
-            #libradtranpath = home+'develop/libRadtran/'
-            libradtranpath = home+'MacOsX/LSST/softs/radtran-2.0/libRadtran-2.0/'
+           
+            libradtranpath = os.environ['LIBRADTRANDIR']+'/'  
+            #libradtranpath = home+'MacOsX/LSST/softs/radtran-2.0/libRadtran-2.0/'
     
             # Rough estimate of center wavlengths of LSST filters. Should use filter functions
             # instead.
