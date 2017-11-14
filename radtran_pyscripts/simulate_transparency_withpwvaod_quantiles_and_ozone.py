@@ -5,13 +5,14 @@ import UVspec
 
 home = os.environ['HOME']+'/'
         
-
 ############################################################################
 def ensure_dir(f):
     d = os.path.dirname(f)
     if not os.path.exists(f):
         os.makedirs(f)
 #########################################################################
+        
+
 
 #####################################################################
 # The program simulation start here
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     ensure_dir('input')
     ensure_dir('output')
     ensure_dir('output/afglus')
-        
+    
 
     # Set up type of run
     runtype= 'aerosol_special' #aerosol_default# #'clearsky'#     
@@ -65,15 +66,18 @@ if __name__ == "__main__":
             else:
                 molresol ='fine'
            
-           
-            libradtranpath = os.environ['LIBRADTRANDIR']+'/'  
+            #libradtranpath = home+'develop/libRadtran/'
             #libradtranpath = home+'MacOsX/LSST/softs/radtran-2.0/libRadtran-2.0/'
+            #libradtranpath = home+'MacOSX/External/libRadtran//libRadtran-2.0.1/'
+            libradtranpath = os.environ['LIBRADTRANDIR']+'/' 
     
             # Rough estimate of center wavlengths of LSST filters. Should use filter functions
             # instead.
 
             # loop on air-masses
             airmassesval = np.array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+            
+            O3_values=np.linspace(240.,320.,5)
      
             for airmass in airmassesval:
                 
@@ -95,8 +99,10 @@ if __name__ == "__main__":
                    precipitablewatervaporstring='H2O '+str(pwv) + ' MM'
                    print '----------------------------------------------------'
                    print index
-                   print aerosolstring
-                  
+                   
+                   
+                   ozonestring='O3 ' + str(O3_values[index])+ ' DU'
+                   
                    
                    verbose=True
                    uvspec = UVspec.UVspec()
@@ -117,7 +123,8 @@ if __name__ == "__main__":
                        uvspec.inp["aerosol_default"] = ''
                        uvspec.inp["aerosol_set_tau_at_wvl"] = aerosolstring
                     
-                   uvspec.inp["mol_modify"] = precipitablewatervaporstring 
+                   uvspec.inp["mol_modify"] = precipitablewatervaporstring
+                   uvspec.inp["mol_modify2"] = ozonestring
                 
                    uvspec.inp["output_user"] = 'lambda edir'
                    uvspec.inp["altitude"] = '2.663'
