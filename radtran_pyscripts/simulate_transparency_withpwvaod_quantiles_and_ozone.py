@@ -77,7 +77,8 @@ if __name__ == "__main__":
             # loop on air-masses
             airmassesval = np.array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
             
-            O3_values=np.linspace(240.,320.,5)
+            O3_values=np.linspace(230.,320.,5)
+            #O3_values=np.linspace(200.,600.,5)
      
             for airmass in airmassesval:
                 
